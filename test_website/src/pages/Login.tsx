@@ -40,21 +40,21 @@ export function Login() {
           Password: {correctPassword}
         </Typography>
         <TextField
-          id="email"
+          id="login-email"
           label="Email address"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
-          id="password"
+          id="login-password"
           label="Password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         {error && (
-          <Typography variant="body2" color="error" className="text-center">
+          <Typography variant="body2" color="error" className="text-center" id="login-error">
             {error}
           </Typography>
         )}

@@ -98,3 +98,8 @@ C:\Users\csaszar.zoltan\Documents\testing-end-of-the-year-project-2025\TestWebsi
 C:\Users\csaszar.zoltan\Documents\testing-end-of-the-year-project-2025\TestWebsite\obj\Debug\net8.0\TestWebsite.pdb
 C:\Users\csaszar.zoltan\Documents\testing-end-of-the-year-project-2025\TestWebsite\obj\Debug\net8.0\TestWebsite.genruntimeconfig.cache
 C:\Users\csaszar.zoltan\Documents\testing-end-of-the-year-project-2025\TestWebsite\obj\Debug\net8.0\ref\TestWebsite.dll
+C:\Users\csaszar.zoltan\Documents\testing-end-of-the-year-project-2025\TestWebsite\bin\Debug\net8.0\selenium-manager\linux\selenium-manager
+C:\Users\csaszar.zoltan\Documents\testing-end-of-the-year-project-2025\TestWebsite\bin\Debug\net8.0\selenium-manager\macos\selenium-manager
+C:\Users\csaszar.zoltan\Documents\testing-end-of-the-year-project-2025\TestWebsite\bin\Debug\net8.0\selenium-manager\windows\selenium-manager.exe
+C:\Users\csaszar.zoltan\Documents\testing-end-of-the-year-project-2025\TestWebsite\bin\Debug\net8.0\WebDriver.Support.dll
+C:\Users\csaszar.zoltan\Documents\testing-end-of-the-year-project-2025\TestWebsite\bin\Debug\net8.0\WebDriver.dll
