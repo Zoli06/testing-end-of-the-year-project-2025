@@ -1,8 +1,9 @@
 import { Call, Home, Logout, ShoppingCart } from "@mui/icons-material";
 import { Badge, Button, Container, Typography } from "@mui/material";
 import { Link } from "react-router";
+import { Cart } from "../../types";
 
-export function Header({ cartItemIds = [] }: { cartItemIds?: number[] }) {
+export function Header({ cart }: { cart: Cart }) {
   return (
     <Container className="flex justify-between items-center p-2 bg-gray-200 mb-4">
       <div>
@@ -21,10 +22,7 @@ export function Header({ cartItemIds = [] }: { cartItemIds?: number[] }) {
         </Link>
         <Link to="/cart">
           <Button>
-            <Badge
-              badgeContent={[...new Set(cartItemIds)].length}
-              color="error"
-            >
+            <Badge badgeContent={cart.length} color="error">
               <ShoppingCart />
             </Badge>
           </Button>

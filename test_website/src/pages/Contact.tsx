@@ -1,76 +1,29 @@
-import { Header } from "../components/Header.tsx";
-import {
-  Button,
-  Checkbox,
-  Container,
-  FormControlLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Header } from "../components/common/Header.tsx";
 import { useState } from "react";
-import { Notification } from "../components/Notification.tsx";
+import { Notification } from "../components/common/Notification.tsx";
+import { ContactForm } from "../components/contact/ContactForm.tsx";
 
 export function Contact() {
-  const [isAnonymous, setIsAnonymous] = useState(false);
   const [displayAlert, setDisplayAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState<"success" | "error">(
+    "success",
+  );
+
+  const handleAlertDisplay = (text: string, severity: "success" | "error") => {
+    setAlertMessage(text);
+    setAlertSeverity(severity);
+    setDisplayAlert(true);
+  };
 
   return (
     <>
-      <Header />
-      <Container
-        component="form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setDisplayAlert(true);
-        }}
-      >
-        <Typography variant="h4" className="text-center mb-4">
-          Contact Us & Feedback
-        </Typography>
-        <Typography variant="body1" className="text-center">
-          If you have any questions or feedback, feel free to reach out to us!
-        </Typography>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={isAnonymous}
-              onChange={(e) => setIsAnonymous(e.target.checked)}
-            />
-          }
-          label={"Anonymous"}
-        />
-        <Typography variant="body2" className="mb-4">
-          {isAnonymous
-            ? "Your feedback will be submitted anonymously."
-            : "We value your feedback and will respond to you."}
-        </Typography>
-        {!isAnonymous && (
-          <>
-            <TextField label="Name" fullWidth margin="normal" required />
-            <TextField
-              label="Email"
-              type="email"
-              fullWidth
-              margin="normal"
-              required
-            />
-          </>
-        )}
-        <TextField
-          label="Message"
-          multiline
-          rows={4}
-          fullWidth
-          margin="normal"
-          required
-        />
-        <Button variant="contained" color="primary" type="submit">
-          Submit
-        </Button>
-      </Container>
+      <Header cart={[]} />
+      <ContactForm displayAlert={handleAlertDisplay} />
       {displayAlert && (
         <Notification
-          message="Thank you for your feedback!"
+          message={alertMessage}
+          severity={alertSeverity}
           onClose={() => {
             setDisplayAlert(false);
           }}
