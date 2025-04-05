@@ -2,7 +2,7 @@ import { Call, Home, Logout, ShoppingCart } from "@mui/icons-material";
 import { Badge, Button, Container, Typography } from "@mui/material";
 import { Link } from "react-router";
 import { useContext } from "react";
-import { CartContext } from "../../context/cart/contexts.ts";
+import { CartContext } from "../../contexts/cart/contexts.ts";
 
 export function Header() {
   const cart = useContext(CartContext);
