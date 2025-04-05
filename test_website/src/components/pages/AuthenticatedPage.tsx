@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { Header } from "../common/Header.tsx";
-import { CartProvider } from "../../contexts/cart";
-import { CategoriesProvider } from "../../contexts/categories";
-import { ProductsProvider } from "../../contexts/products";
+import { CartProvider } from "../../context/cart";
+import { CategoriesProvider } from "../../context/categories";
+import { ProductsProvider } from "../../context/products";
 import { Notification } from "../common/Notification.tsx";
 import {
   AlertContext,
   AlertDispatchContext,
-} from "../../contexts/alert/contexts.ts";
+} from "../../context/alert/contexts.ts";
 import { Outlet } from "react-router";
 
 export function AuthenticatedPage() {

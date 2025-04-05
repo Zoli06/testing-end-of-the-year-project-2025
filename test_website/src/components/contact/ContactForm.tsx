@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useContext, useState } from "react";
-import { AlertDispatchContext } from "../../contexts/alert/contexts.ts";
+import { AlertDispatchContext } from "../../context/alert/contexts.ts";
 
 export function ContactForm() {
   const alertDispatch = useContext(AlertDispatchContext);
