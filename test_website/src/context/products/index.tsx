@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { Header } from "../components/common/Header.tsx";
-import { CartEditor } from "../components/checkout/CartEditor.tsx";
+import { ProductsContext } from "./contexts.ts";
+import { ReactNode } from "react";
 
-const products = [
+const DummyProducts = [
   {
     id: 1,
     title: "Smartphone",
@@ -77,34 +76,10 @@ const products = [
   },
 ];
 
-export function Cart() {
-  const [cart, setCart] = useState([
-    { productId: 1, quantity: 2 },
-    { productId: 2, quantity: 1 },
-  ]);
-
-  const handleQuantityChange = (productId: number, quantity: number) => {
-    if (quantity <= 0) {
-      setCart((prevCart) =>
-        prevCart.filter((item) => item.productId !== productId),
-      );
-    } else {
-      setCart((prevCart) =>
-        prevCart.map((item) =>
-          item.productId === productId ? { ...item, quantity } : item,
-        ),
-      );
-    }
-  };
-
+export function ProductsProvider({ children }: { children: ReactNode }) {
   return (
-    <>
-      <Header cart={cart} />
-      <CartEditor
-        cart={cart}
-        setQuantity={handleQuantityChange}
-        products={products}
-      />
-    </>
+    <ProductsContext.Provider value={DummyProducts}>
+      {children}
+    </ProductsContext.Provider>
   );
 }

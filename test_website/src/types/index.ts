@@ -16,3 +16,9 @@ export type Cart = {
   productId: number;
   quantity: number;
 }[];
+
+export type Alert = {
+  message: string;
+  severity: "success" | "error";
+  open: boolean;
+};

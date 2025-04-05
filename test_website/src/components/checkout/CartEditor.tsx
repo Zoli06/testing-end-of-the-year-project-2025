@@ -11,17 +11,18 @@ import {
   Typography,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { Cart, Product } from "../../types";
+import { useContext } from "react";
+import {
+  CartContext,
+  CartDispatchContext,
+} from "../../context/cart/contexts.ts";
+import { ProductsContext } from "../../context/products/contexts.ts";
 
-export function CartEditor({
-  products,
-  cart,
-  setQuantity,
-}: {
-  products: Product[];
-  cart: Cart;
-  setQuantity: (productId: number, quantity: number) => void;
-}) {
+export function CartEditor() {
+  const cart = useContext(CartContext);
+  const cartDispatch = useContext(CartDispatchContext);
+  const products = useContext(ProductsContext);
+
   const totalPrice = cart.reduce((total, item) => {
     const product = products.find((product) => product.id === item.productId);
     if (product) {
@@ -72,9 +73,16 @@ export function CartEditor({
                         const newQuantity = parseInt(e.target.value);
 
                         if (newQuantity > 0) {
-                          setQuantity(product.id, newQuantity);
+                          // setQuantity(product.id, newQuantity);
+                          cartDispatch({
+                            productId: product.id,
+                            quantity: newQuantity,
+                          });
                         } else {
-                          setQuantity(product.id, 1);
+                          cartDispatch({
+                            productId: product.id,
+                            quantity: 1,
+                          });
                         }
                       }}
                     />
@@ -83,7 +91,10 @@ export function CartEditor({
                   <TableCell>
                     <Button
                       onClick={() => {
-                        setQuantity(product.id, 0);
+                        cartDispatch({
+                          productId: product.id,
+                          quantity: 0,
+                        });
                       }}
                     >
                       <Close color="error" />
@@ -92,7 +103,6 @@ export function CartEditor({
                 </TableRow>
               );
             })}
-            ;
           </TableBody>
         </Table>
       </TableContainer>

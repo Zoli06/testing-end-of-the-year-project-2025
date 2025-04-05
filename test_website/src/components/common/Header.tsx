@@ -1,9 +1,12 @@
 import { Call, Home, Logout, ShoppingCart } from "@mui/icons-material";
 import { Badge, Button, Container, Typography } from "@mui/material";
 import { Link } from "react-router";
-import { Cart } from "../../types";
+import { useContext } from "react";
+import { CartContext } from "../../context/cart/contexts.ts";
 
-export function Header({ cart }: { cart: Cart }) {
+export function Header() {
+  const cart = useContext(CartContext);
+
   return (
     <Container className="flex justify-between items-center p-2 bg-gray-200 mb-4">
       <div>

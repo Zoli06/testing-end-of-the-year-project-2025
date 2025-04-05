@@ -1,20 +1,36 @@
 import { Container, MenuItem, Select, Typography } from "@mui/material";
 import { ProductCard } from "./ProductCard.tsx";
-import { useState } from "react";
-import { Category, Product } from "../../types";
+import { useContext, useState } from "react";
+import { CategoriesContext } from "../../context/categories/contexts.ts";
+import {
+  CartContext,
+  CartDispatchContext,
+} from "../../context/cart/contexts.ts";
+import { ProductsContext } from "../../context/products/contexts.ts";
 
-export function ProductBrowser({
-  categories,
-  products,
-  addToCart,
-}: {
-  categories: Category[];
-  products: Product[];
-  addToCart: (product: number) => void;
-}) {
+export function ProductBrowser() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | "all">(
     "all",
   );
+
+  const cart = useContext(CartContext);
+  const cartDispatch = useContext(CartDispatchContext);
+  const products = useContext(ProductsContext);
+  const categories = useContext(CategoriesContext);
+
+  const handleAddToCart = (productId: number) => {
+    const existingItem = cart.find((item) => item.productId === productId);
+    if (existingItem) {
+      cartDispatch({
+        productId: productId,
+        quantity: existingItem.quantity + 1,
+      });
+    } else {
+      cartDispatch({ productId: productId, quantity: 1 });
+    }
+  };
+
+  console.log("Cart", cart);
 
   return (
     <Container className="relative">
@@ -45,7 +61,7 @@ export function ProductBrowser({
             <ProductCard
               key={product.id}
               product={product}
-              onAddToCart={() => addToCart(product.id)}
+              onAddToCart={() => handleAddToCart(product.id)}
             />
           ))}
       </div>

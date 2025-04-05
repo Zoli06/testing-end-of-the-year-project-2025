@@ -23,7 +23,7 @@ export function LoginForm() {
 
   return (
     <Container
-      className="flex flex-col items-stretch justify-center bg-gray-100 p-8 rounded-lg shadow-md max-w-sm gap-1"
+      className="flex flex-col items-stretch justify-center bg-gray-100 p-8 rounded-lg shadow-md gap-1"
       component={"form"}
       onSubmit={(e) => {
         e.preventDefault();

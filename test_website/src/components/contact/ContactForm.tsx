@@ -6,13 +6,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AlertDispatchContext } from "../../context/alert/contexts.ts";
 
-export function ContactForm({
-  displayAlert,
-}: {
-  displayAlert: (text: string, severity: "success" | "error") => void;
-}) {
+export function ContactForm() {
+  const alertDispatch = useContext(AlertDispatchContext);
+
   const [isAnonymous, setIsAnonymous] = useState(false);
 
   return (
@@ -20,7 +19,11 @@ export function ContactForm({
       component="form"
       onSubmit={(e) => {
         e.preventDefault();
-        displayAlert("Thank you for your feedback!", "success");
+        alertDispatch({
+          message: "Thank you for your feedback!",
+          severity: "success",
+          open: true,
+        });
       }}
     >
       <Typography variant="h4" className="text-center mb-4">
