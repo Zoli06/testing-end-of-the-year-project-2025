@@ -1,6 +1,6 @@
 import { Cart } from "../../types";
 import { ReactNode, useReducer } from "react";
-import { CartContext, CartDispatchContext } from "./contexts.ts";
+import { CartContext, CartDispatchContext } from "./context.ts";
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, [] as Cart);

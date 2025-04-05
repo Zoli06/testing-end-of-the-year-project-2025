@@ -1,4 +1,4 @@
-import { CategoriesContext } from "./contexts.ts";
+import { CategoriesContext } from "./context.ts";
 import { ReactNode } from "react";
 
 const DummyCategories = [

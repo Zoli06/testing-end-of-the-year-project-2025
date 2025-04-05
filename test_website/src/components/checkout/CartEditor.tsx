@@ -15,8 +15,8 @@ import { useContext } from "react";
 import {
   CartContext,
   CartDispatchContext,
-} from "../../context/cart/contexts.ts";
-import { ProductsContext } from "../../context/products/contexts.ts";
+} from "../../context/cart/context.ts";
+import { ProductsContext } from "../../context/products/context.ts";
 
 export function CartEditor() {
   const cart = useContext(CartContext);

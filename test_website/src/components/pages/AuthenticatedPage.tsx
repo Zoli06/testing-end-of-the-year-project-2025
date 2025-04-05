@@ -7,7 +7,7 @@ import { Notification } from "../common/Notification.tsx";
 import {
   AlertContext,
   AlertDispatchContext,
-} from "../../context/alert/contexts.ts";
+} from "../../context/alert/context.ts";
 import { Outlet } from "react-router";
 
 export function AuthenticatedPage() {

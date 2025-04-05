@@ -1,4 +1,4 @@
-import { AlertContext, AlertDispatchContext } from "./contexts.ts";
+import { AlertContext, AlertDispatchContext } from "./context.ts";
 import { ReactNode, useState } from "react";
 import { Alert } from "../../types";
 

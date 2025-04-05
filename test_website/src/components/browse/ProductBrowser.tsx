@@ -1,12 +1,12 @@
 import { Container, MenuItem, Select, Typography } from "@mui/material";
 import { ProductCard } from "./ProductCard.tsx";
 import { useContext, useState } from "react";
-import { CategoriesContext } from "../../context/categories/contexts.ts";
+import { CategoriesContext } from "../../context/categories/context.ts";
 import {
   CartContext,
   CartDispatchContext,
-} from "../../context/cart/contexts.ts";
-import { ProductsContext } from "../../context/products/contexts.ts";
+} from "../../context/cart/context.ts";
+import { ProductsContext } from "../../context/products/context.ts";
 
 export function ProductBrowser() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | "all">(

@@ -1,4 +1,4 @@
-import { ProductsContext } from "./contexts.ts";
+import { ProductsContext } from "./context.ts";
 import { ReactNode } from "react";
 
 const DummyProducts = [
