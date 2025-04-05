@@ -1,12 +1,5 @@
 import { Alert } from "../../types";
-import { createContext } from "react";
+import { createContext, Dispatch } from "react";
 
-export const AlertContext = createContext<Alert>({
-  message: "",
-  severity: "success",
-  open: false,
-});
-
-export const AlertDispatchContext = createContext<(alert: Alert) => void>(
-  () => {},
-);
+export const AlertContext = createContext<Alert | null>(null);
+export const AlertDispatchContext = createContext<Dispatch<Alert> | null>(null);

@@ -11,25 +11,18 @@ import {
   Typography,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { useContext } from "react";
-import {
-  CartContext,
-  CartDispatchContext,
-} from "../../context/cart/context.ts";
-import { ProductsContext } from "../../context/products/context.ts";
+import { useCart } from "../../hooks/useCart.ts";
+import { useProducts } from "../../hooks/useProducts.ts";
 
 export function CartEditor() {
-  const cart = useContext(CartContext);
-  const cartDispatch = useContext(CartDispatchContext);
-  const products = useContext(ProductsContext);
-
-  const totalPrice = cart.reduce((total, item) => {
-    const product = products.find((product) => product.id === item.productId);
-    if (product) {
-      return total + product.price * item.quantity;
-    }
-    return total;
-  }, 0);
+  const {
+    cart,
+    updateCartItem,
+    removeFromCart,
+    totalPrice,
+    totalPriceOfProduct,
+  } = useCart();
+  const { products } = useProducts();
 
   return (
     <Container>
@@ -43,6 +36,7 @@ export function CartEditor() {
               <TableCell>Product</TableCell>
               <TableCell>Quantity</TableCell>
               <TableCell>Price</TableCell>
+              <TableCell>Total</TableCell>
               <TableCell>Remove</TableCell>
             </TableRow>
           </TableHead>
@@ -73,28 +67,21 @@ export function CartEditor() {
                         const newQuantity = parseInt(e.target.value);
 
                         if (newQuantity > 0) {
-                          // setQuantity(product.id, newQuantity);
-                          cartDispatch({
-                            productId: product.id,
-                            quantity: newQuantity,
-                          });
+                          updateCartItem(product.id, newQuantity);
                         } else {
-                          cartDispatch({
-                            productId: product.id,
-                            quantity: 1,
-                          });
+                          updateCartItem(product.id, 1);
                         }
                       }}
                     />
                   </TableCell>
                   <TableCell>${product.price.toFixed(2)}</TableCell>
                   <TableCell>
+                    ${totalPriceOfProduct(product.id, product.price).toFixed(2)}
+                  </TableCell>
+                  <TableCell>
                     <Button
                       onClick={() => {
-                        cartDispatch({
-                          productId: product.id,
-                          quantity: 0,
-                        });
+                        removeFromCart(product.id);
                       }}
                     >
                       <Close color="error" />

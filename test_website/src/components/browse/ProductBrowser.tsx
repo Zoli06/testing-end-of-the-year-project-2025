@@ -1,36 +1,16 @@
 import { Container, MenuItem, Select, Typography } from "@mui/material";
 import { ProductCard } from "./ProductCard.tsx";
-import { useContext, useState } from "react";
-import { CategoriesContext } from "../../context/categories/context.ts";
-import {
-  CartContext,
-  CartDispatchContext,
-} from "../../context/cart/context.ts";
-import { ProductsContext } from "../../context/products/context.ts";
+import { useState } from "react";
+import { useProducts } from "../../hooks/useProducts.ts";
+import { useCategories } from "../../hooks/useCategories.ts";
 
 export function ProductBrowser() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | "all">(
     "all",
   );
 
-  const cart = useContext(CartContext);
-  const cartDispatch = useContext(CartDispatchContext);
-  const products = useContext(ProductsContext);
-  const categories = useContext(CategoriesContext);
-
-  const handleAddToCart = (productId: number) => {
-    const existingItem = cart.find((item) => item.productId === productId);
-    if (existingItem) {
-      cartDispatch({
-        productId: productId,
-        quantity: existingItem.quantity + 1,
-      });
-    } else {
-      cartDispatch({ productId: productId, quantity: 1 });
-    }
-  };
-
-  console.log("Cart", cart);
+  const { products } = useProducts();
+  const { categories } = useCategories();
 
   return (
     <Container className="relative">
@@ -58,11 +38,7 @@ export function ProductBrowser() {
               product.categoryId === selectedCategoryId,
           )
           .map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onAddToCart={() => handleAddToCart(product.id)}
-            />
+            <ProductCard key={product.id} product={product} />
           ))}
       </div>
     </Container>

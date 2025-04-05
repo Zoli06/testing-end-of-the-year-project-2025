@@ -1,23 +1,22 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useLogin } from "../../hooks/useLogin";
+import { useAlert } from "../../hooks/useAlert";
 
 export function LoginForm() {
-  const correctEmail = "admin@admin.com";
-  const correctPassword = "admin123";
-
-  const [error, setError] = useState("");
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { login } = useLogin();
+  const { showAlert } = useAlert();
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (email === correctEmail && password === correctPassword) {
+    if (login(email, password).success) {
       navigate("/browse");
     } else {
-      setError("Invalid email or password");
+      showAlert("Invalid email or password", "error");
     }
   };
 
@@ -34,9 +33,9 @@ export function LoginForm() {
         Welcome back!
       </Typography>
       <Typography variant="body2" className="text-center mb-4">
-        Email: {correctEmail}
+        Email: admin@admin.com
         <br />
-        Password: {correctPassword}
+        Password: admin123
       </Typography>
       <TextField
         id="login-email"
@@ -52,16 +51,6 @@ export function LoginForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      {error && (
-        <Typography
-          variant="body2"
-          color="error"
-          className="text-center"
-          id="login-error"
-        >
-          {error}
-        </Typography>
-      )}
       <Button
         variant="contained"
         color="primary"

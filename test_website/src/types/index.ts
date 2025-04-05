@@ -1,3 +1,5 @@
+import { AlertProps } from "@mui/material";
+
 export type Product = {
   id: number;
   title: string;
@@ -19,6 +21,6 @@ export type Cart = {
 
 export type Alert = {
   message: string;
-  severity: "success" | "error";
+  severity: AlertProps["severity"];
   open: boolean;
 };

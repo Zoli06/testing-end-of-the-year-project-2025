@@ -1,9 +1,10 @@
 import { AlertContext, AlertDispatchContext } from "./context.ts";
 import { ReactNode, useState } from "react";
-import { Alert } from "../../types";
+import { Alert as AlertType } from "../../types";
+import { Alert } from "../../components/common/Alert.tsx";
 
 export function AlertProvider({ children }: { children: ReactNode }) {
-  const [alert, setAlert] = useState<Alert>({
+  const [alert, setAlert] = useState<AlertType>({
     message: "",
     severity: "success",
     open: false,
@@ -13,6 +14,7 @@ export function AlertProvider({ children }: { children: ReactNode }) {
     <AlertContext.Provider value={alert}>
       <AlertDispatchContext.Provider value={setAlert}>
         {children}
+        {alert.open && <Alert />}
       </AlertDispatchContext.Provider>
     </AlertContext.Provider>
   );
