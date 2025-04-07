@@ -1,19 +1,21 @@
-import { Alert as MuiAlert, Container } from "@mui/material";
+// import { Alert as MuiAlert, Container } from "@mui/material";
+import { Alert as BootstrapAlert, Container } from "react-bootstrap";
 import { useAlert } from "../../hooks/useAlert.ts";
 
 export function Alert() {
   const { alert, closeAlert } = useAlert();
 
   return (
-    <div className="fixed bottom-4 left-0 right-0">
-      <Container>
-        <MuiAlert
-          severity={alert.severity}
-          variant="outlined"
+    <div className="d-flex justify-content-center">
+      <Container className="d-flex flex-column align-content-stretch position-fixed bottom-0">
+        <BootstrapAlert
+          variant={alert.variant}
           onClose={closeAlert}
+          dismissible
+          id="alert-text"
         >
           {alert.message}
-        </MuiAlert>
+        </BootstrapAlert>
       </Container>
     </div>
   );

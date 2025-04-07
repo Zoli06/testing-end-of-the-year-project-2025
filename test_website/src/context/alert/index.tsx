@@ -6,7 +6,7 @@ import { Alert } from "../../components/common/Alert.tsx";
 export function AlertProvider({ children }: { children: ReactNode }) {
   const [alert, setAlert] = useState<AlertType>({
     message: "",
-    severity: "success",
+    variant: "success",
     open: false,
   });
 

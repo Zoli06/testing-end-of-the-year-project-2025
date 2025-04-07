@@ -1,30 +1,41 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Card, Button } from "react-bootstrap";
 import { Product } from "../../types";
 import { useCart } from "../../hooks/useCart.ts";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  className,
+}: {
+  product: Product;
+  className?: string;
+}) {
   const { addToCart } = useCart();
 
   return (
-    <Card className="w-36 relative pb-8">
-      <CardMedia image={product.image} className="h-48" />
-      <CardContent>
-        <Typography variant="body1">{product.title}</Typography>
-        <Typography variant="body2" color="textSecondary">
-          {product.description}
-        </Typography>
-        <Typography variant="body1">${product.price.toFixed(2)}</Typography>
-      </CardContent>
-      <CardActions className="absolute bottom-0 w-full">
-        <Button onClick={() => addToCart(product.id)}>Add to cart</Button>
-      </CardActions>
-    </Card>
+    <div className={`${className ?? ""} p-2`}>
+      <Card className={`relative product-card p-0 h-100`}>
+        <Card.Img
+          src={product.image}
+          className="product-card-image"
+          variant="top"
+        />
+        <Card.Body className="position-relative">
+          <Card.Title className="product-card-name">{product.name}</Card.Title>
+          <Card.Text color="textSecondary" className="product-card-description">
+            {product.description}
+          </Card.Text>
+          <Card.Text className="product-card-price position-absolute bottom-0">
+            ${product.price.toFixed(2)}
+          </Card.Text>
+        </Card.Body>
+        <Button
+          onClick={() => addToCart(product.id)}
+          className="product-card-add-to-cart m-2"
+          variant="outline-primary"
+        >
+          Add to cart
+        </Button>
+      </Card>
+    </div>
   );
 }

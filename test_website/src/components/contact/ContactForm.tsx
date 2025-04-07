@@ -1,11 +1,4 @@
-import {
-  Button,
-  Checkbox,
-  Container,
-  FormControlLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import { useAlert } from "../../hooks/useAlert.ts";
 
@@ -14,56 +7,38 @@ export function ContactForm() {
   const [isAnonymous, setIsAnonymous] = useState(false);
 
   return (
-    <Container
-      component="form"
+    <Form
       onSubmit={(e) => {
         e.preventDefault();
         showAlert("Thank you for your feedback!", "success");
       }}
     >
-      <Typography variant="h4" className="text-center mb-4">
-        Contact Us & Feedback
-      </Typography>
-      <Typography variant="body1" className="text-center">
+      <h1 className="text-center">Contact Us & Feedback</h1>
+      <h2 className="text-center">
         If you have any questions or feedback, feel free to reach out to us!
-      </Typography>
-      <FormControlLabel
-        control={
-          <Checkbox
+      </h2>
+      <div className="d-flex flex-column gap-2">
+        <Form.Group>
+          <Form.Check
+            label="Anonymous"
             checked={isAnonymous}
             onChange={(e) => setIsAnonymous(e.target.checked)}
           />
-        }
-        label={"Anonymous"}
-      />
-      <Typography variant="body2" className="mb-4">
-        {isAnonymous
-          ? "Your feedback will be submitted anonymously."
-          : "We value your feedback and will respond to you."}
-      </Typography>
-      {!isAnonymous && (
-        <>
-          <TextField label="Name" fullWidth margin="normal" required />
-          <TextField
-            label="Email"
-            type="email"
-            fullWidth
-            margin="normal"
-            required
-          />
-        </>
-      )}
-      <TextField
-        label="Message"
-        multiline
-        rows={4}
-        fullWidth
-        margin="normal"
-        required
-      />
-      <Button variant="contained" color="primary" type="submit">
-        Submit
-      </Button>
-    </Container>
+        </Form.Group>
+        <p>
+          {isAnonymous
+            ? "Your feedback will be submitted anonymously."
+            : "We value your feedback and will respond to you."}
+        </p>
+        {!isAnonymous && (
+          <>
+            <Form.Control placeholder="Name" required />
+            <Form.Control placeholder="Email address" required />
+          </>
+        )}
+        <Form.Control as="textarea" placeholder="Your thoughts" required />
+        <Button type="submit">Submit</Button>
+      </div>
+    </Form>
   );
 }

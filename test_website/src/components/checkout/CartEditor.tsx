@@ -1,18 +1,6 @@
-import {
-  Button,
-  Container,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Close } from "@mui/icons-material";
 import { useCart } from "../../hooks/useCart.ts";
 import { useProducts } from "../../hooks/useProducts.ts";
+import { Button, Form, Table } from "react-bootstrap";
 
 export function CartEditor() {
   const {
@@ -25,77 +13,69 @@ export function CartEditor() {
   const { products } = useProducts();
 
   return (
-    <Container>
-      <Typography variant="h4" className="text-center mb-4">
-        Shopping Cart
-      </Typography>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Product</TableCell>
-              <TableCell>Quantity</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Total</TableCell>
-              <TableCell>Remove</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {cart.map((item, index) => {
-              const product = products.find(
-                (product) => product.id === item.productId,
-              );
+    <div>
+      <h1 className="text-center">Shopping Cart</h1>
+      <Table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart.map((item, index) => {
+            const product = products.find(
+              (product) => product.id === item.productId,
+            );
 
-              if (!product) {
-                return null;
-              }
+            if (!product) {
+              return null;
+            }
 
-              return (
-                <TableRow key={index}>
-                  <TableCell>{product.title}</TableCell>
-                  <TableCell>
-                    <TextField
-                      type="number"
-                      value={item.quantity}
-                      variant="standard"
-                      slotProps={{
-                        htmlInput: {
-                          min: 1,
-                        },
-                      }}
-                      onChange={(e) => {
-                        const newQuantity = parseInt(e.target.value);
+            return (
+              <tr key={index}>
+                <td>{product.name}</td>
+                <td>
+                  <Form.Control
+                    type="number"
+                    value={item.quantity}
+                    min="1"
+                    onChange={(e) => {
+                      const newQuantity = parseInt(e.target.value);
 
-                        if (newQuantity > 0) {
-                          updateCartItem(product.id, newQuantity);
-                        } else {
-                          updateCartItem(product.id, 1);
-                        }
-                      }}
-                    />
-                  </TableCell>
-                  <TableCell>${product.price.toFixed(2)}</TableCell>
-                  <TableCell>
-                    ${totalPriceOfProduct(product.id, product.price).toFixed(2)}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      onClick={() => {
-                        removeFromCart(product.id);
-                      }}
-                    >
-                      <Close color="error" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Typography variant="h6" className="text-right mt-4">
-        Total: ${totalPrice.toFixed(2)}
-      </Typography>
-    </Container>
+                      if (newQuantity > 0) {
+                        updateCartItem(product.id, newQuantity);
+                      } else {
+                        updateCartItem(product.id, 1);
+                      }
+                    }}
+                  />
+                </td>
+                <td>${product.price.toFixed(2)}</td>
+                <td>
+                  ${totalPriceOfProduct(product.id, product.price).toFixed(2)}
+                </td>
+                <td>
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => {
+                      removeFromCart(product.id);
+                    }}
+                  >
+                    Remove
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+      <p>
+        <b>Total: </b>${totalPrice.toFixed(2)}
+      </p>
+    </div>
   );
 }

@@ -1,8 +1,8 @@
-import { Container, MenuItem, Select, Typography } from "@mui/material";
 import { ProductCard } from "./ProductCard.tsx";
 import { useState } from "react";
 import { useProducts } from "../../hooks/useProducts.ts";
 import { useCategories } from "../../hooks/useCategories.ts";
+import { Form } from "react-bootstrap";
 
 export function ProductBrowser() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | "all">(
@@ -13,24 +13,27 @@ export function ProductBrowser() {
   const { categories } = useCategories();
 
   return (
-    <Container className="relative">
-      <Typography variant="h4" className="text-center">
-        Browse Products
-      </Typography>
-      <div className="absolute top-0">
-        <Select
+    <Form className="position-relative">
+      <h1 className="text-center">Browse Products</h1>
+      <div className="position-absolute top-0 pt-2">
+        <Form.Select
           value={selectedCategoryId}
-          onChange={(e) => setSelectedCategoryId(e.target.value as number)}
+          onChange={(e) =>
+            setSelectedCategoryId(
+              e.target.value == "all" ? "all" : parseInt(e.target.value),
+            )
+          }
+          id="category-select"
         >
-          <MenuItem value="all">All Products</MenuItem>
+          <option value="all">All Products</option>
           {categories.map((category) => (
-            <MenuItem key={category.id} value={category.id}>
+            <option key={category.id} value={category.id}>
               {category.name}
-            </MenuItem>
+            </option>
           ))}
-        </Select>
+        </Form.Select>
       </div>
-      <div className="flex flex-wrap justify-start gap-4 mt-4">
+      <div className="row">
         {products
           .filter(
             (product) =>
@@ -38,9 +41,13 @@ export function ProductBrowser() {
               product.categoryId === selectedCategoryId,
           )
           .map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              className="col-12 col-md-4 col-lg-3"
+            />
           ))}
       </div>
-    </Container>
+    </Form>
   );
 }

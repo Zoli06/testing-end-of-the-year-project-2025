@@ -12,9 +12,9 @@ export function useAlert() {
 
   const showAlert = (
     message: AlertType["message"],
-    severity: AlertType["severity"],
+    variant: AlertType["variant"],
   ) => {
-    dispatch({ ...alert, message, severity, open: true });
+    dispatch({ ...alert, message, variant, open: true });
   };
 
   const closeAlert = () => {

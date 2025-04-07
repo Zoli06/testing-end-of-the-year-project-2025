@@ -1,8 +1,8 @@
-import { AlertProps } from "@mui/material";
+import { Variant } from "react-bootstrap/types";
 
 export type Product = {
   id: number;
-  title: string;
+  name: string;
   description: string;
   price: number;
   image: string;
@@ -21,6 +21,6 @@ export type Cart = {
 
 export type Alert = {
   message: string;
-  severity: AlertProps["severity"];
+  variant: Variant;
   open: boolean;
 };
