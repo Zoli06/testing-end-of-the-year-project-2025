@@ -3,28 +3,13 @@ using OpenQA.Selenium.Chrome;
 
 namespace TestWebsite.Pages;
 
-public abstract class BasePage
+public abstract class BasePage(IWebDriver driver)
 {
-    protected abstract Uri RelativePageUrl { get; }
-    
-    protected readonly IWebDriver Driver = new ChromeDriver();
+    protected readonly IWebDriver Driver = driver;
     
     private readonly Uri _baseUrl = new("http://localhost:5173");
-    private Uri FullUrl => new(_baseUrl, RelativePageUrl);
-    public Uri CurrentUrl => new(Driver.Url);
+    protected abstract Uri RelativePageUrl { get; }
+    public Uri Url => new(_baseUrl, RelativePageUrl);
 
-    protected BasePage()
-    {
-        Driver.Navigate().GoToUrl(FullUrl);
-    }
-
-    public void Dispose()
-    {
-        Driver.Quit();
-    }
-    
-    ~BasePage()
-    {
-        Dispose();
-    }
+    public IWebElement? AlertText => Driver.FindElements(By.Id("alert-text")).FirstOrDefault();
 }

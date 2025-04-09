@@ -1,41 +1,25 @@
-using TestWebsite.Pages;
-
 namespace TestWebsite.Tests;
 
-public class LoginTests
+public class LoginTests : BaseTests
 {
-    private LoginPage _loginPage;
-
-    [SetUp]
-    public void Setup()
-    {
-        _loginPage = new LoginPage();
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        _loginPage.Dispose();
-    }
-
     [Test]
     public void LoginWithInvalidEmailShouldFail()
     {
-        _loginPage.Login("asfbaeiu@vndrbund.com", LoginPage.CorrectPassword);
-        Assert.That(_loginPage.HasError);
+        LoginPage.Login("asfbaeiu@vndrbund.com", Pages.LoginPage.CorrectPassword);
+        Assert.That(LoginPage.AlertText?.Text, Is.EqualTo("Invalid email or password"));
     }
 
     [Test]
     public void LoginWithInvalidPasswordShouldFail()
     {
-        _loginPage.Login(LoginPage.CorrectEmail, "dsgsgegsg");
-        Assert.That(_loginPage.HasError);
+        LoginPage.Login(Pages.LoginPage.CorrectEmail, "dsgsgegsg");
+        Assert.That(LoginPage.AlertText?.Text, Is.EqualTo("Invalid email or password"));
     }
 
     [Test]
     public void LoginWithValidEmailAndPasswordShouldSucceed()
     {
-        _loginPage.Login(LoginPage.CorrectEmail, LoginPage.CorrectPassword);
-        Assert.That(_loginPage.HasError, Is.False);
+        LoginPage.Login(Pages.LoginPage.CorrectEmail, Pages.LoginPage.CorrectPassword);
+        Assert.That(IsUrlEqualTo(BrowsePage.Url));
     }
 }
