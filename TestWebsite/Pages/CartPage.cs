@@ -19,7 +19,7 @@ public class CartPage(IWebDriver driver) : AuthenticatedPage(driver)
     {
         get
         {
-            var elements = driver.FindElements(By.ClassName("cart-editor-item"));
+            var elements = Driver.FindElements(By.ClassName("cart-editor-item"));
             return elements.Select(element => new CartEditorItem(element)).ToArray();
         }
     }
