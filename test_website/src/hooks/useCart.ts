@@ -46,20 +46,11 @@ export function useCart() {
     dispatch({ productId, quantity: 0 });
   };
 
-  const totalPriceOfProduct = (productId: number, price: number) => {
-    const item = cart.find((item) => item.productId === productId);
-    if (item) {
-      return item.quantity * price;
-    }
-    return 0;
-  };
-
   return {
     cart,
     addToCart,
     updateCartItem,
     removeFromCart,
-    totalPriceOfProduct,
     totalPrice,
   };
 }

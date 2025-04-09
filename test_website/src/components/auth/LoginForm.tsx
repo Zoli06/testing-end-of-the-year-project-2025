@@ -16,7 +16,7 @@ export function LoginForm() {
     if (login(email, password).success) {
       navigate("/browse");
     } else {
-      showAlert("Invalid email or password", "error");
+      showAlert("Invalid email or password", "danger");
     }
   };
 

@@ -11,22 +11,24 @@ export function Header() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Nav>
-          <Nav.Link as={Link} to="/browse">
-            Home
+          <Nav.Link as={Link} to="/browse" id="menu-browse-link">
+            Browse
           </Nav.Link>
-          <Nav.Link as={Link} to="/contact">
+          <Nav.Link as={Link} to="/contact" id="menu-contact-link">
             Contact
           </Nav.Link>
-          <Nav.Link as={Link} to="/cart">
+          <Nav.Link as={Link} to="/cart" id="menu-cart-link">
             Cart
-            {cart.length > -1 && (
+            {cart.length > 0 && (
               <>
                 {" "}
-                <Badge bg="primary">a</Badge>
+                <Badge bg="primary" id="header-cart-counter">
+                  {cart.length}
+                </Badge>
               </>
             )}
           </Nav.Link>
-          <Nav.Link as={Link} to="/">
+          <Nav.Link as={Link} to="/" id="menu-login-link">
             Log out
           </Nav.Link>
         </Nav>

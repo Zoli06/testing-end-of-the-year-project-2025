@@ -1,6 +1,7 @@
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Form } from "react-bootstrap";
 import { Product } from "../../types";
 import { useCart } from "../../hooks/useCart.ts";
+import { useState } from "react";
 
 export function ProductCard({
   product,
@@ -9,7 +10,8 @@ export function ProductCard({
   product: Product;
   className?: string;
 }) {
-  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(0);
+  const { updateCartItem } = useCart();
 
   return (
     <div className={`${className ?? ""} p-2`}>
@@ -28,13 +30,30 @@ export function ProductCard({
             ${product.price.toFixed(2)}
           </Card.Text>
         </Card.Body>
-        <Button
-          onClick={() => addToCart(product.id)}
-          className="product-card-add-to-cart m-2"
-          variant="outline-primary"
+        <Form
+          className="d-flex flex-column"
+          onSubmit={(e) => {
+            e.preventDefault();
+            updateCartItem(product.id, quantity);
+          }}
         >
-          Add to cart
-        </Button>
+          <div className="p-2 pb-0">
+            <Form.Control
+              className="product-card-quantity"
+              placeholder="Quantity"
+              type="number"
+              value={quantity || ""}
+              onChange={(e) => setQuantity(parseInt(e.target.value))}
+            />
+          </div>
+          <Button
+            type="submit"
+            className="product-card-add-to-cart m-2"
+            variant="outline-primary"
+          >
+            Add to cart
+          </Button>
+        </Form>
       </Card>
     </div>
   );

@@ -3,13 +3,7 @@ import { useProducts } from "../../hooks/useProducts.ts";
 import { Button, Form, Table } from "react-bootstrap";
 
 export function CartEditor() {
-  const {
-    cart,
-    updateCartItem,
-    removeFromCart,
-    totalPrice,
-    totalPriceOfProduct,
-  } = useCart();
+  const { cart, updateCartItem, removeFromCart, totalPrice } = useCart();
   const { products } = useProducts();
 
   return (
@@ -36,10 +30,11 @@ export function CartEditor() {
             }
 
             return (
-              <tr key={index}>
-                <td>{product.name}</td>
+              <tr key={index} className="cart-editor-item">
+                <td className="cart-editor-name">{product.name}</td>
                 <td>
                   <Form.Control
+                    className="cart-editor-quantity"
                     type="number"
                     value={item.quantity}
                     min="1"
@@ -54,12 +49,15 @@ export function CartEditor() {
                     }}
                   />
                 </td>
-                <td>${product.price.toFixed(2)}</td>
-                <td>
-                  ${totalPriceOfProduct(product.id, product.price).toFixed(2)}
+                <td className="cart-editor-price">
+                  ${product.price.toFixed(2)}
+                </td>
+                <td className="cart-editor-total">
+                  ${product.price * item.quantity}
                 </td>
                 <td>
                   <Button
+                    className="cart-editor-remove-button"
                     variant="outline-danger"
                     onClick={() => {
                       removeFromCart(product.id);

@@ -15,7 +15,7 @@ function App() {
         </Route>
 
         <Route element={<AuthenticatedPage />}>
-          <Route path="browse" element={<ProductBrowser />} />
+          <Route id="browse" path="browse" element={<ProductBrowser />} />
           <Route path="cart" element={<CartEditor />} />
           <Route path="contact" element={<ContactForm />} />
         </Route>

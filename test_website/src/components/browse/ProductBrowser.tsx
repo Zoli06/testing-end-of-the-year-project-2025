@@ -13,9 +13,9 @@ export function ProductBrowser() {
   const { categories } = useCategories();
 
   return (
-    <Form className="position-relative">
+    <div className="position-relative">
       <h1 className="text-center">Browse Products</h1>
-      <div className="position-absolute top-0 pt-2">
+      <Form className="position-absolute top-0 pt-2">
         <Form.Select
           value={selectedCategoryId}
           onChange={(e) =>
@@ -32,7 +32,7 @@ export function ProductBrowser() {
             </option>
           ))}
         </Form.Select>
-      </div>
+      </Form>
       <div className="row">
         {products
           .filter(
@@ -48,6 +48,6 @@ export function ProductBrowser() {
             />
           ))}
       </div>
-    </Form>
+    </div>
   );
 }
