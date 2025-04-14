@@ -4,4 +4,6 @@ Website mappában:
 1. `npm i`
 2. `npm run dev`
 
-Ezután mehetnek a tesztek
+Ezután mehetnek a tesztek.
+
+Archiválom, hogy látszódjon hogy nem módosítottam határidő után.
