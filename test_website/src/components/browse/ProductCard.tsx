@@ -1,13 +1,15 @@
 import { Card, Button, Form } from "react-bootstrap";
-import { Product } from "../../types";
+import { Category, Product } from "../../types";
 import { useCart } from "../../hooks/useCart.ts";
 import { useState } from "react";
 
 export function ProductCard({
   product,
+  category,
   className,
 }: {
   product: Product;
+  category: Category;
   className?: string;
 }) {
   const [quantity, setQuantity] = useState(0);
@@ -23,6 +25,9 @@ export function ProductCard({
         />
         <Card.Body className="position-relative">
           <Card.Title className="product-card-name">{product.name}</Card.Title>
+          <Card.Text className="product-card-category fst-italic">
+            {category.name}
+          </Card.Text>
           <Card.Text color="textSecondary" className="product-card-description">
             {product.description}
           </Card.Text>
@@ -43,7 +48,9 @@ export function ProductCard({
               placeholder="Quantity"
               type="number"
               value={quantity || ""}
+              min="1"
               onChange={(e) => setQuantity(parseInt(e.target.value))}
+              required
             />
           </div>
           <Button

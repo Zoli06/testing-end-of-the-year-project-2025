@@ -1,20 +1,35 @@
+using System.Globalization;
 using OpenQA.Selenium;
 
 namespace TestWebsite.Pages;
 
-public class CartPage(IWebDriver driver) : AuthenticatedPage(driver)
+public class CartPage(IWebDriver driver) : PageWithHeader(driver)
 {
-    public readonly struct CartEditorItem(IWebElement element)
+    protected override Uri RelativePageUrl { get; } = new("cart", UriKind.Relative);
+    
+    #region Cart items
+    public class CartEditorItem(IWebElement element)
     {
-        public IWebElement Name => element.FindElement(By.ClassName("cart-editor-name"));
-        public IWebElement QuantityInput => element.FindElement(By.ClassName("cart-editor-quantity"));
-        public IWebElement Price => element.FindElement(By.ClassName("cart-editor-price"));
-        public IWebElement Total => element.FindElement(By.ClassName("cart-editor-total"));
-        public IWebElement RemoveButton => element.FindElement(By.ClassName("cart-editor-remove"));
+        private IWebElement NameElement => element.FindElement(By.ClassName("cart-editor-name"));
+        private IWebElement QuantityInputElement => element.FindElement(By.ClassName("cart-editor-quantity"));
+        private IWebElement PriceElement => element.FindElement(By.ClassName("cart-editor-price"));
+        private IWebElement TotalElement => element.FindElement(By.ClassName("cart-editor-total"));
+        private IWebElement RemoveElement => element.FindElement(By.ClassName("cart-editor-remove"));
+        
+        public string Name => NameElement.Text;
+        public int Quantity
+        {
+            get => int.Parse(QuantityInputElement.GetAttribute("value")!);
+            set => QuantityInputElement.SendKeys(value.ToString());
+        }
+        public double Price => double.Parse(PriceElement.Text, NumberStyles.Currency);
+        public double Total => double.Parse(TotalElement.Text, NumberStyles.Currency);
+        public void RemoveFromCart()
+        {
+            RemoveElement.Click();
+        }
     }
     
-    protected override Uri RelativePageUrl { get; } = new("cart", UriKind.Relative);
-
     public CartEditorItem[] CartEditorItems
     {
         get
@@ -24,20 +39,21 @@ public class CartPage(IWebDriver driver) : AuthenticatedPage(driver)
         }
     }
 
-    public CartEditorItem? GetCartEditorItemByName(string name)
-    {
-        return CartEditorItems.First(x => x.Name.Text == name);
-    }
-
     public bool DoesCartContain(string name, int? quantity = null)
     {
-        var item = GetCartEditorItemByName(name);
-        if (item == null)
+        var item = CartEditorItems.FirstOrDefault(x => x.Name == name);
+        if (item is null)
             return false;
-        
-        var quantityToCheck = quantity?.ToString() ?? item.Value.QuantityInput.Text;
-        var actualQuantity = item.Value.QuantityInput.GetAttribute("value");
+
+        var quantityToCheck = quantity ?? item.Quantity;
+        var actualQuantity = item.Quantity;
         
         return quantityToCheck == actualQuantity;
     }
+    #endregion
+    
+    #region Total price
+    private IWebElement TotalPriceElement => Driver.FindElement(By.ClassName("cart-total-price"));
+    public double TotalPrice => double.Parse(TotalPriceElement.Text, NumberStyles.Currency);
+    #endregion
 }

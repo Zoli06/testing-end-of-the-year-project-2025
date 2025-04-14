@@ -53,11 +53,11 @@ export function CartEditor() {
                   ${product.price.toFixed(2)}
                 </td>
                 <td className="cart-editor-total">
-                  ${product.price * item.quantity}
+                  ${(product.price * item.quantity).toFixed(2)}
                 </td>
                 <td>
                   <Button
-                    className="cart-editor-remove-button"
+                    className="cart-editor-remove"
                     variant="outline-danger"
                     onClick={() => {
                       removeFromCart(product.id);
@@ -72,7 +72,8 @@ export function CartEditor() {
         </tbody>
       </Table>
       <p>
-        <b>Total: </b>${totalPrice.toFixed(2)}
+        <b>Total: </b>
+        <span className="cart-total-price">${totalPrice.toFixed(2)}</span>
       </p>
     </div>
   );

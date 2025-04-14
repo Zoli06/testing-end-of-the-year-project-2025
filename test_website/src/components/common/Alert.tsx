@@ -12,7 +12,7 @@ export function Alert() {
           variant={alert.variant}
           onClose={closeAlert}
           dismissible
-          id="alert-text"
+          className="alert-text"
         >
           {alert.message}
         </BootstrapAlert>

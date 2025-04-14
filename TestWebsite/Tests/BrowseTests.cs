@@ -6,30 +6,36 @@ namespace TestWebsite.Tests;
 public class BrowseTests : BaseTests
 {
     [SetUp]
-    public void SetUp()
+    public override void SetUp()
     {
-        Driver.Navigate().GoToUrl(LoginPage.Url);
+        base.SetUp();
         LoginPage.Login(LoginPage.CorrectEmail, LoginPage.CorrectPassword);
+        BrowsePage.HeaderCollapsed = false;
     }
 
-    [TestCase("Electronics", new[] { "Smartphone", "Laptop", "Smartwatch" })]
-    [TestCase("Home Appliances", new[] { "Refrigerator", "Washing Machine", "Microwave Oven" })]
-    [TestCase("Fashion", new[] { "Sneakers", "Jacket", "Watch" })]
-    [TestCase("All Products",
-        new[]
-        {
-            "Smartphone", "Laptop", "Smartwatch",
-            "Refrigerator", "Washing Machine", "Microwave Oven",
-            "Sneakers", "Jacket", "Watch"
-        })]
-    public void ProductShouldBeDisplayedAccordingToSelectedCategory(string category, string[] expected)
+    [TestCase(1)]
+    [TestCase(2)]
+    [TestCase(3)]
+    public void ProductShouldBeDisplayedAccordingToSelectedCategory(int categoryIndex)
     {
-        BrowsePage.SelectCategory(category);
-        var products = BrowsePage.ProductCards.Select(x => x.Name.Text).ToArray();
-        Array.Sort(products);
-        Array.Sort(expected);
+        // If categoryIndex is 0, it will be "All Categories"
+        ArgumentOutOfRangeException.ThrowIfZero(categoryIndex);
+        
+        var categoryName = BrowsePage.ProductCards[categoryIndex].Category;
+        
+        BrowsePage.SelectCategory(categoryName);
+        var categories = BrowsePage.ProductCards.Select(x => x.Category).ToArray();
 
-        Assert.That(products, Is.EquivalentTo(expected));
+        Assert.That(categories, Is.All.EqualTo(categoryName));
+    }
+    
+    [Test]
+    public void AllProductsShouldBeDisplayedIfAllCategoriesAreSelected()
+    {
+        BrowsePage.SelectCategory(BrowsePage.AllCategories);
+        var categories = BrowsePage.ProductCards.Select(x => x.Category).ToArray();
+
+        Assert.That(categories, Is.All.Not.Null);
     }
 
     [Test]
@@ -40,41 +46,46 @@ public class BrowseTests : BaseTests
 
     [TestCase(0)]
     [TestCase(-1)]
-    public void CartCounterShouldNotBeDisplayedIfQuantityIsZeroOrNegative(int quantity)
+    public void CartCounterShouldNotBeAddedIfQuantityIsZeroOrNegative(int quantity)
     {
-        BrowsePage.ProductCards[0].Quantity.SendKeys(quantity.ToString());
-        BrowsePage.ProductCards[0].AddToCartButton.Click();
+        BrowsePage.ProductCards[0].AddToCart(quantity);
         
         Assert.That(BrowsePage.HeaderCartCounter, Is.Null);
     }
     
-    [TestCase(["Smartphone"])]
-    [TestCase(["Smartphone", "Laptop"])]
-    public void CartCounterShouldDisplayNumberOfProducts(params string[] names)
+    [TestCase(1)]
+    [TestCase(2)]
+    public void CartCounterShouldDisplayNumberOfProducts(int itemCount)
     {
-        foreach (var name in names)
+        for (var i = 0; i < itemCount; i++)
         {
-            BrowsePage.AddProductToCart(name, 3);
+            BrowsePage.ProductCards[i].AddToCart(3);
         }
 
-        Assert.That(BrowsePage.HeaderCartCounter?.Text, Is.EqualTo(names.Length.ToString()));
+        Assert.That(BrowsePage.HeaderCartCounter, Is.EqualTo(itemCount));
     }
-
-    [TestCase(new[] {"Smartphone", "Laptop"}, new[] {2, 3})]
-    [TestCase(new[] {"Smartphone"}, new[] {3})]
-    [TestCase(new string[] {}, new int[] {})]
-    public void ElementsShouldBePlacedInTheCart(string[] names, int[] quantities)
+    
+    // Gondolom ha itt is, meg a Cart Page-nel is szinkronban van a Badge (a headerben), akkor ez nem kell, mert egymassal is szinkronban lesznek...
+    // Mindegy, most itt hagyom
+    [TestCase(0)]
+    [TestCase(1)]
+    [TestCase(2)]
+    public void ElementsShouldBePlacedInTheCart(int itemCount)
     {
-        if (names.Length != quantities.Length)
-            throw new ArgumentException("The length of names must be equal to the length of quantities.");
-
+        var names = BrowsePage.ProductCards
+            .Select(x => x.Name)
+            .Take(itemCount)
+            .ToArray();
+        
+        var quantities = Enumerable.Range(1, itemCount).ToArray();
+        
         for (var i = 0; i < names.Length; i++)
         {
             BrowsePage.AddProductToCart(names[i], quantities[i]);
         }
         
-        BrowsePage.HeaderCartLink.Click();
-
+        BrowsePage.HeaderCartLink.Navigate();
+    
         using (Assert.EnterMultipleScope())
         {
             for (var i = 0; i < names.Length; i++)

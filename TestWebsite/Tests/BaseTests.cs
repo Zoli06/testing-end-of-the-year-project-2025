@@ -7,33 +7,35 @@ namespace TestWebsite.Tests;
 [TestFixture]
 public abstract class BaseTests
 {
-    protected IWebDriver Driver;
+    private IWebDriver _driver;
     protected BrowsePage BrowsePage;
     protected LoginPage LoginPage;
     protected CartPage CartPage;
+    protected ContactPage ContactPage;
 
     [SetUp]
-    public void Setup()
+    public virtual void SetUp()
     {
-        Driver = new ChromeDriver();
-        Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+        _driver = new ChromeDriver();
+        _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
 
-        BrowsePage = new BrowsePage(Driver);
-        LoginPage = new LoginPage(Driver);
-        CartPage = new CartPage(Driver);
+        BrowsePage = new BrowsePage(_driver);
+        LoginPage = new LoginPage(_driver);
+        CartPage = new CartPage(_driver);
+        ContactPage = new ContactPage(_driver);
 
-        Driver.Navigate().GoToUrl(LoginPage.Url);
+        _driver.Navigate().GoToUrl(LoginPage.Url);
     }
 
     [TearDown]
     public void TearDown()
     {
-        Driver.Dispose();
+        _driver.Dispose();
     }
 
     protected bool IsUrlEqualTo(Uri url)
     {
-        return Uri.Compare(url, new Uri(Driver.Url), UriComponents.Path, UriFormat.UriEscaped,
+        return Uri.Compare(url, new Uri(_driver.Url), UriComponents.Path, UriFormat.UriEscaped,
             StringComparison.Ordinal) == 0;
     }
 }

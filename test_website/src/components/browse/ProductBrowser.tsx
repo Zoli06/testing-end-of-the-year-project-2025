@@ -23,9 +23,9 @@ export function ProductBrowser() {
               e.target.value == "all" ? "all" : parseInt(e.target.value),
             )
           }
-          id="category-select"
+          className="category-select"
         >
-          <option value="all">All Products</option>
+          <option value="all">All Categories</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
@@ -44,6 +44,11 @@ export function ProductBrowser() {
             <ProductCard
               key={product.id}
               product={product}
+              category={
+                categories.find(
+                  (category) => category.id === product.categoryId,
+                )!
+              }
               className="col-12 col-md-4 col-lg-3"
             />
           ))}

@@ -9,26 +9,26 @@ export function Header() {
     <Navbar expand="lg">
       <Navbar.Brand>My Shop</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+      <Navbar.Collapse className="justify-content-end">
         <Nav>
-          <Nav.Link as={Link} to="/browse" id="menu-browse-link">
+          <Nav.Link as={Link} to="/browse" className="menu-browse-link">
             Browse
           </Nav.Link>
-          <Nav.Link as={Link} to="/contact" id="menu-contact-link">
+          <Nav.Link as={Link} to="/contact" className="menu-contact-link">
             Contact
           </Nav.Link>
-          <Nav.Link as={Link} to="/cart" id="menu-cart-link">
+          <Nav.Link as={Link} to="/cart" className="menu-cart-link">
             Cart
             {cart.length > 0 && (
               <>
                 {" "}
-                <Badge bg="primary" id="header-cart-counter">
+                <Badge bg="primary" className="header-cart-counter">
                   {cart.length}
                 </Badge>
               </>
             )}
           </Nav.Link>
-          <Nav.Link as={Link} to="/" id="menu-login-link">
+          <Nav.Link as={Link} to="/" className="menu-login-link">
             Log out
           </Nav.Link>
         </Nav>

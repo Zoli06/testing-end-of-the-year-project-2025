@@ -37,7 +37,7 @@ export function LoginForm() {
       <Form.Group>
         <Form.Label>Email address</Form.Label>
         <Form.Control
-          id="login-email"
+          className="login-email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -46,13 +46,18 @@ export function LoginForm() {
       <Form.Group>
         <Form.Label>Password</Form.Label>
         <Form.Control
-          id="login-password"
+          className="login-password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Group>
-      <Button variant="primary" color="primary" type="submit" id="login-button">
+      <Button
+        variant="primary"
+        color="primary"
+        type="submit"
+        className="login-button"
+      >
         Login
       </Button>
     </Form>
