@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/TestWebsite/TestWebsite.csproj": {}
+    "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/Test/TestWebsite.csproj": {}
   },
   "projects": {
-    "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/TestWebsite/TestWebsite.csproj": {
+    "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/Test/TestWebsite.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/TestWebsite/TestWebsite.csproj",
+        "projectUniqueName": "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/Test/TestWebsite.csproj",
         "projectName": "TestWebsite",
-        "projectPath": "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/TestWebsite/TestWebsite.csproj",
+        "projectPath": "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/Test/TestWebsite.csproj",
         "packagesPath": "/home/zoltan/.nuget/packages/",
-        "outputPath": "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/TestWebsite/obj/",
+        "outputPath": "/home/Projects/School/Testing/testing-end-of-the-year-project-2025/Test/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/zoltan/.nuget/NuGet/NuGet.Config"

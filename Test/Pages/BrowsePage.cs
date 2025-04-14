@@ -32,7 +32,7 @@ public class BrowsePage(IWebDriver driver) : PageWithHeader(driver)
         public string Name => NameElement.Text;
         public string Category => CategoryElement.Text;
         public string Description => DescriptionElement.Text;
-        public double Price => double.Parse(PriceElement.Text, NumberStyles.Currency);
+        public double Price => double.Parse(PriceElement.Text, NumberStyles.Currency, new CultureInfo("en-US").NumberFormat);
         public string ImageSource => ImageElement.GetAttribute("src")!;
         public int Quantity => int.Parse(QuantityElement.Text);
         

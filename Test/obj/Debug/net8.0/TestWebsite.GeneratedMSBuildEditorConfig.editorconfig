@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TestWebsite
-build_property.ProjectDir = /home/Projects/School/Testing/testing-end-of-the-year-project-2025/TestWebsite/
+build_property.ProjectDir = /home/Projects/School/Testing/testing-end-of-the-year-project-2025/Test/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

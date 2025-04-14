@@ -22,8 +22,8 @@ public class CartPage(IWebDriver driver) : PageWithHeader(driver)
             get => int.Parse(QuantityInputElement.GetAttribute("value")!);
             set => QuantityInputElement.SendKeys(value.ToString());
         }
-        public double Price => double.Parse(PriceElement.Text, NumberStyles.Currency);
-        public double Total => double.Parse(TotalElement.Text, NumberStyles.Currency);
+        public double Price => double.Parse(PriceElement.Text, NumberStyles.Currency, new CultureInfo("en-US").NumberFormat);
+        public double Total => double.Parse(TotalElement.Text, NumberStyles.Currency, new CultureInfo("en-US").NumberFormat);
         public void RemoveFromCart()
         {
             RemoveElement.Click();
@@ -54,6 +54,6 @@ public class CartPage(IWebDriver driver) : PageWithHeader(driver)
     
     #region Total price
     private IWebElement TotalPriceElement => Driver.FindElement(By.ClassName("cart-total-price"));
-    public double TotalPrice => double.Parse(TotalPriceElement.Text, NumberStyles.Currency);
+    public double TotalPrice => double.Parse(TotalPriceElement.Text, NumberStyles.Currency, new CultureInfo("en-US").NumberFormat);
     #endregion
 }
