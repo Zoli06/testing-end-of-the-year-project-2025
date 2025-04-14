@@ -27,7 +27,7 @@ public abstract class PageWithHeader(IWebDriver driver) : BasePage(driver)
 
     public class HeaderLink(IWebElement element)
     {
-        public IWebElement Element => element;
+        private IWebElement Element => element;
         public void Navigate()
         {
             if (!element.Displayed)

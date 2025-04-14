@@ -17,7 +17,7 @@ public abstract class BaseTests
     public virtual void SetUp()
     {
         _driver = new ChromeDriver();
-        _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+        _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1.5);
 
         BrowsePage = new BrowsePage(_driver);
         LoginPage = new LoginPage(_driver);

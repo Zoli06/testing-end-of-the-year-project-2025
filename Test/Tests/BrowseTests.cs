@@ -97,4 +97,37 @@ public class BrowseTests : BaseTests
             Assert.That(CartPage.CartEditorItems.Count, Is.EqualTo(names.Length));
         } 
     }
+    
+    // Ugyanaz a Header component van mindenhol, ezert nem teszteltem le mindenhol
+    [Test]
+    public void NavigatesToBrowsePage()
+    {
+        BrowsePage.HeaderBrowseLink.Navigate();
+        
+        Assert.That(IsUrlEqualTo(BrowsePage.Url));
+    }
+    
+    [Test]
+    public void NavigatesToCartPage()
+    {
+        BrowsePage.HeaderCartLink.Navigate();
+        
+        Assert.That(IsUrlEqualTo(CartPage.Url));
+    }
+    
+    [Test]
+    public void NavigatesToContactPage()
+    {
+        BrowsePage.HeaderContactLink.Navigate();
+        
+        Assert.That(IsUrlEqualTo(ContactPage.Url));
+    }
+    
+    [Test]
+    public void NavigatesToLoginPage()
+    {
+        BrowsePage.HeaderLoginLink.Navigate();
+        
+        Assert.That(IsUrlEqualTo(LoginPage.Url));
+    }
 }
