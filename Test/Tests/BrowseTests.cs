@@ -30,7 +30,7 @@ public class BrowseTests : BaseTests
     }
     
     [Test]
-    public void AllProductsShouldBeDisplayedIfAllCategoriesAreSelected()
+    public void AllProductsShouldBeDisplayedIfAllCategoriesSelected()
     {
         BrowsePage.SelectCategory(BrowsePage.AllCategories);
         var categories = BrowsePage.ProductCards.Select(x => x.Category).ToArray();
