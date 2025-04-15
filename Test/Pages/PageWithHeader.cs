@@ -30,9 +30,9 @@ public abstract class PageWithHeader(IWebDriver driver) : BasePage(driver)
         private IWebElement Element => element;
         public void Navigate()
         {
-            if (!element.Displayed)
+            if (!Element.Displayed)
                 throw new InvalidOperationException("Element is not displayed");
-            element.Click();
+            Element.Click();
         }
     }
     
